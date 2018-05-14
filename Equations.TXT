@@ -1,0 +1,27 @@
+ATMOSPHERE(t) = ATMOSPHERE(t - dt) + (Solar_to_Atmos + Surface_heat_to_atmos - Atmos_LW_to_Surface - Atmos_LW_Loss) * dt
+INIT ATMOSPHERE = 16.5
+INFLOWS:
+Solar_to_Atmos = SW_Atmos_Absorp*(Solar_Input-Reflected_Insolation)
+Surface_heat_to_atmos =  (108*((Surface_Temp/288)^4))+(36*Surface_Temp/288)
+OUTFLOWS:
+Atmos_LW_to_Surface = 102*((Atm_Temp/255)^4)
+Atmos_LW_Loss = 60*((Atm_Temp/255)^4)
+SURFACE(t) = SURFACE(t - dt) + (Atmos_LW_to_Surface + Solar_heat_to_Surface - Surface_to_Space - Surface_heat_to_atmos) * dt
+INIT SURFACE = 271.2
+INFLOWS:
+Atmos_LW_to_Surface = 102*((Atm_Temp/255)^4)
+Solar_heat_to_Surface = (Solar_Input-Reflected_Insolation)*(1-SW_Atmos_Absorp)*(1-Surface_albedo)
+OUTFLOWS:
+Surface_to_Space = 8*((Surface_Temp/288)^4)
+Surface_heat_to_atmos =  (108*((Surface_Temp/288)^4))+(36*Surface_Temp/288)
+Atm_del_T = Atm_Temp-255
+Atm_Temp = ATMOSPHERE*(255/16.5)
+Cloud_albedo = 27/60
+Cloud_Cover = 0.6
+
+Reflected_Insolation = Solar_Input*Cloud_cover*Cloud_Albedo
+Solar_Input = 100
+Surface_albedo = 4/54
+Surface_del_T = Surface_Temp-288
+Surface_Temp = SURFACE*(288/271.2)
+SW_Atmos_Absorp = 0.25

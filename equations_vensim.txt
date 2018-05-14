@@ -1,0 +1,187 @@
+(01)	Atm del T=
+		Atm Temp- 255
+	Units: Kelvin
+	
+(02)	Atm del T 0=
+		Atm Temp 0- 255
+	Units: Kelvin
+	
+(03)	Atm Temp=
+		ATMOSPHERE*(255/16.5)
+	Units: Kelvin
+	
+(04)	Atm Temp 0=
+		ATMOSPHERE 0*(255/16.5)
+	Units: Kelvin
+	
+(05)	Atmos LW loss=
+		60*((Atm Temp/255)^4)
+	Units: **undefined**
+	
+(06)	Atmos LW loss 0=
+		60*((Atm Temp 0/255)^4)
+	Units: **undefined**
+	
+(07)	Atmos LW to Surface=
+		102*((Atm Temp/255)^4)
+	Units: **undefined**
+	
+(08)	Atmos LW to Surface 0=
+		102*((Atm Temp 0/255)^4)
+	Units: **undefined**
+	
+(09)	ATMOSPHERE= INTEG (
+		Solar to Atmos+Surface heat to Atmos-Atmos LW loss-Atmos LW to Surface,
+			INIT ATMOS)
+	Units: **undefined**
+	
+(10)	ATMOSPHERE 0= INTEG (
+		Solar to Atmos 0+Surface heat to Atmos 0-Atmos LW loss 0-Atmos LW to Surface 0
+	,
+			INIT ATMOS 0)
+	Units: **undefined**
+	
+(11)	Cloud albedo=
+		27/60
+	Units: **undefined**
+	
+(12)	Cloud albedo 0=
+		27/60
+	Units: **undefined**
+	
+(13)	Cloud Cover=
+		0.6
+	Units: **undefined**
+	
+(14)	Cloud Cover 0 = WITH LOOKUP (
+		 Surface Temp 0,
+			([(258,0)-(318,1)],(258,0.015),(268,0.11),(278,0.36),(288,0.6),(298,0.84
+	),(308,0.92),(318,0.95) ))
+	Units: **undefined**
+	
+(15)	FINAL TIME  = 10
+	Units: Year
+	The final time for the simulation.
+
+(16)	INIT ATMOS=
+		16.5
+	Units: **undefined**
+	
+(17)	INIT ATMOS 0=
+		16.5
+	Units: **undefined**
+	
+(18)	INIT SURFACE=
+		271.2
+	Units: **undefined**
+	
+(19)	INIT SURFACE 0=
+		271.2
+	Units: **undefined**
+	
+(20)	INITIAL TIME  = 0
+	Units: Year
+	The initial time for the simulation.
+
+(21)	Reflected Insolation=
+		Solar Input*Cloud Cover*Cloud albedo
+	Units: **undefined**
+	
+(22)	Reflected Insolation 0=
+		Solar Input 0*Cloud Cover 0*Cloud albedo 0
+	Units: **undefined**
+	
+(23)	SAVEPER  = 
+	        TIME STEP
+	Units: Year [0,?]
+	The frequency with which output is stored.
+
+(24)	Solar heat to Surface=
+		(Solar Input-Reflected Insolation)*(1-SW Atmos Absorp)*(1-Surface Albedo)
+	Units: **undefined**
+	
+(25)	Solar heat to Surface 0=
+		(Solar Input 0-Reflected Insolation 0)*(1-SW Atmos Absorp 0)*(1-Surface Albedo 0
+	)
+	Units: **undefined**
+	
+(26)	Solar Input=
+		100
+	Units: **undefined** [0,200,1]
+	
+(27)	Solar Input 0=
+		101.25
+	Units: **undefined** [0,200,1]
+	
+(28)	Solar to Atmos=
+		SW Atmos Absorp*(Solar Input-Reflected Insolation)
+	Units: **undefined**
+	
+(29)	Solar to Atmos 0=
+		SW Atmos Absorp 0*(Solar Input 0-Reflected Insolation 0)
+	Units: **undefined**
+	
+(30)	SURFACE= INTEG (
+		Atmos LW to Surface+Solar heat to Surface-Surface heat to Atmos-Surface to Space
+	,
+			INIT SURFACE)
+	Units: **undefined**
+	
+(31)	SURFACE 0= INTEG (
+		Atmos LW to Surface 0+Solar heat to Surface 0-Surface heat to Atmos 0-Surface to Space 0
+	,
+			INIT SURFACE 0)
+	Units: **undefined**
+	
+(32)	Surface Albedo=
+		4/54
+	Units: **undefined**
+	
+(33)	Surface Albedo 0=
+		4/54
+	Units: **undefined**
+	
+(34)	Surface del T=
+		Surface Temp-288
+	Units: Kelvin
+	
+(35)	Surface del T 0=
+		Surface Temp 0-288
+	Units: Kelvin
+	
+(36)	Surface heat to Atmos=
+		(109.2*(Surface Temp/288)^4)+(36*Surface Temp/288)
+	Units: **undefined**
+	
+(37)	Surface heat to Atmos 0=
+		(108*(Surface Temp 0/288)^4)+(36*Surface Temp 0/288)
+	Units: **undefined**
+	
+(38)	Surface Temp=
+		SURFACE*(288/271.2)
+	Units: Kelvin
+	
+(39)	Surface Temp 0=
+		SURFACE 0*(288/271.2)
+	Units: Kelvin
+	
+(40)	Surface to Space=
+		6.8*((Surface Temp/288)^4)
+	Units: **undefined**
+	
+(41)	Surface to Space 0=
+		8*((Surface Temp 0/288)^4)
+	Units: **undefined**
+	
+(42)	SW Atmos Absorp=
+		0.25
+	Units: **undefined**
+	
+(43)	SW Atmos Absorp 0=
+		0.25
+	Units: **undefined**
+	
+(44)	TIME STEP  = 0.01
+	Units: Year [0,?]
+	The time step for the simulation.
+
